@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bingo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <nav id="nav_wrapper">
+        <div id="nav">
+            <div id="header">
+                <a><h2 id="title_text">Bingo</h2></a>
+                <div id="toggle">
+                    <div id="line-wrapper">
+                        <div class="line top-line"></div>
+                        <div class="line mid-line"></div>
+                        <div class="line btm-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="options">
+            <div id="btn_play_game" class="option">Play Game</div>
+            <div id="btn_quit_game" class="option">Quit Game</div>
+            <div id="btn_create_game" class="option">Create Game</div>
+            <div id="btn_edit_game" class="option">Edit Game</div>
+            <div id="btn_delete_game" class="option">Delete Game</div>
+        </div>
+        <div id="play_game"></div>
+        <div id="edit_game"></div>
+        <div id="delete_game"></div>
+        <div id="cancel"><div id="btn_cancel">Close</div></div>
+    </nav>
+
+    <main>
+        <div id="delete_local_storage" hidden>
+            <p class="error-msg">
+                If you are seeing this, something went wrong and you most likely have corrupt data in one of your games.
+                <br/><br/>
+                Please try one of the following:
+                <br/><br/>
+            </p>
+            <button id="btn_delete_current_game" onclick="deleteCurrentGame()">Delete Current Game</button>
+            <button id="btn_delete_saved_games" onclick="deleteSavedGames()">Delete Saved Games</button>
+            <button id="btn_delete_local_storage" onclick="deleteStorage()">Delete Local Storage</button>
+        </div>
+
+        <div id="game_board">
+            <div id="host_controls">
+                <select id="pulled_game_options">
+                </select><button id="pull_option">Pull Option</button>
+            </div>
+            <select id="game_options">
+                <option>Create or Load a Game</option>
+            </select>
+            <table>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+
+        <form id="create_game">
+            <label>Game Title</label>
+            <p id="title_required" class="error-msg">* Requires at least one alpha-numeric character</p>
+            <p id="title_character" class="error-msg">* Invalid character (can only use alpha-numeric, commas, and spaces)</p>
+            <input id="bingo_title" placeholder="Please enter spaces and alpha-numeric characters only">
+            <label>Possible Cells</label>
+            <p id="options_short" class="error-msg">* Must have at least 24 comma separated entries</p>
+            <p id="options_character" class="error-msg">* Invalid character (can only use alpha-numeric, commas, and spaces)</p>
+            <p id="options_entry" class="error-msg">* Invalid entry (each entry needs at least one alpha-numeric character)</p>
+            <p id="options_url" class="warning-msg">
+                WARNING: the generated url is more than 2048 characters and may not be readable in all browsers. 
+                To avoid this issue, reduce the number of options or reduce the text within options.
+            </p>
+            <textarea id="bingo_options" placeholder="Enter at least 24 options. Please enter spaces and alpha-numeric characters only with commas separating each cell option"></textarea>
+        
+            <button id="remove_characters" class="danger">Remove Errors</button>
+            <button id="generate_game">Generate Game</button>
+            <p id="copy_success">Copied to clipboard</p>
+            <textarea id="generated_url" name="generated_url"></textarea>
+        </form>
+
+
+        <div id="modal_bg"><div id="modal" data-action="" data="">
+            <div id="modal_close">
+                <div class="line line-left"></div>
+                <div class="line line-right"></div>
+            </div>
+            <div class="content"></div>
+            <div class="footer">
+                <button class="cancel">Cancel</button><button class="confirm">Confirm</button>
+            </div>
+        </div></div>
+    </main>
+
+    <script>
+        setTimeout(function() {
+            $("#delete_local_storage, #delete_local_storage .error-msg").fadeIn(500);
+        }, 2500);
+
+        function deleteCurrentGame() {
+            delete localStorage.currentGame;
+            location.reload(true);
+        }
+
+        function deleteSavedGames() {
+            delete localStorage.savedGames;
+            location.reload(true);
+        }
+
+        function deleteStorage() {
+            delete localStorage.currentGame;
+            delete localStorage.savedGames;
+            location.reload(true);
+        }
+    </script>
+</body>
+</html>

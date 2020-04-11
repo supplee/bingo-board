@@ -1,0 +1,367 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "M PLUS Rounded 1c", Arial, sans-serif;
+    vertical-align: top;
+}
+
+/* MENU */
+
+#nav {
+    background: #46b;
+    padding: 10px;
+}
+
+#nav #header {
+    position: relative;
+    height: 50px;
+    color: #fff;
+}
+
+#toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#line-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#toggle .line {
+    width: 100%;
+    height: 20%;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    position: absolute;
+    transition: all 250ms ease-in-out;
+}
+
+#toggle .line.top-line {
+    top: 0;
+}
+
+#toggle .line.mid-line {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#toggle .line.btm-line {
+    top: 100%;
+    transform: translateY(-100%);
+}
+
+#toggle.close .line.top-line, #toggle.close .line.btm-line  {
+    top: 50%;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+#toggle.close .line.mid-line {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+#nav_wrapper #options, #play_game, #edit_game, #delete_game, #cancel {
+    height: 0;
+    overflow: hidden;
+    background-color: #46b;
+    transition: all 500ms ease-in-out;
+}
+
+#nav_wrapper #options.open {
+    height: 240px;
+}
+
+.option {
+    height: 60px;
+    padding: 16px;
+    text-align: center;
+    cursor: pointer;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.option:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#btn_cancel {
+    background-color: #c44;
+    padding: 16px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+}
+
+#btn_cancel:hover {
+    background-color: #f44;
+}
+
+#cancel.open, #cancel.open #btn_cancel {
+    height: 60px;
+}
+
+#btn_quit_game {
+    display: none;
+}
+
+
+/* bingo */
+
+body {
+    background-color: #fff;
+}
+
+body, input, textarea, select, option, button, p {
+    font-size: 20px;
+}
+
+main {
+    padding: 20px;
+}
+
+p {
+    margin-bottom: 10px;
+}
+
+input, textarea, select {
+    display: block;
+}
+
+input, textarea, select, button {
+    padding: 10px;
+    border: 4px solid #46b;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+    height: 200px;
+}
+
+:focus {
+    outline: 4px dashed #46b;
+}
+
+#header a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.warning-msg {
+    display: none;
+    color: #e94;
+}
+
+.error-msg {
+    display: none;
+    color: #c44;
+}
+
+.error {
+    border: 4px solid #c44;
+}
+
+.error:focus {
+    outline: 4px dashed #c44;
+}
+
+button {
+    cursor: pointer;
+    background: #46b;
+    color: #fff;
+    border: none;
+}
+
+button.danger {
+    background: #c44;
+}
+
+button.danger:hover {
+    background: #f44;
+}
+
+#copy_success {
+    display: none;
+}
+
+#create_game {
+    display: none;
+}
+
+#host_controls {
+    display: none;
+}
+
+#game_board {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+#game_board.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#game_board table {
+    width: 100%;
+    height: calc(100vh - 100px);
+    border-collapse: collapse;
+}
+
+#game_board table td {
+    width: 20%;
+    height: 20%;
+    border: 4px solid #46b;
+    font-size: 2.5vw;
+}
+
+table tr:nth-of-type(3) td:nth-of-type(3), .checked {
+    background: #46b;
+    color: #fff;
+    text-align: center;
+}
+
+#game_board table td.bingo {
+    background-color: #46bc;
+}
+
+#modal_bg {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#modal {
+    display: none;
+    position: fixed;
+    top: 20vh;
+    bottom: 20vh;
+    left: 50%;
+    width: 90%;
+    min-width: 200px;
+    max-width: 800px;
+    transform: translate(-50%);
+    background: #fff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+#modal_close {
+    display: none;
+}
+
+#modal.show-close #modal_close {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    background: #c44;
+    border-radius: 6px;
+}
+
+#modal_close .line {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 75%;
+    height: 15%;
+    background: #fff;
+    border-radius: 100px;
+}
+
+#modal_close .line.line-left {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#modal_close .line.line-right {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+#modal .content {
+    overflow-y: auto;
+    padding: 60px;
+    height: 100%;
+}
+
+#modal.show-footer .content {
+    height: calc(100% - 60px);
+}
+
+#modal .footer {
+    height: 0;
+}
+
+#modal .footer button {
+    display: none;
+}
+
+#modal.show-footer .footer {
+    height: 60px;
+    background: #46b;
+}
+
+#modal.show-footer .footer button {
+    display: inline-block;
+    border-radius: 0;
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+}
+
+#modal.show-footer .footer .cancel {
+    background: #c44;
+}
+
+#modal.show-footer .footer .cancel:hover {
+    background: #f44;
+}
+
+#modal.show-footer .footer .confirm:hover {
+    background: #46f;
+}
+
+@media screen and (min-width: 768px) {
+    #game_board table td {
+        border: 4px solid #46b;
+        font-size: 16px;
+    }
+
+    #pulled_game_options, #pull_option {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    #pulled_game_options {
+        width: calc(80% - 20px);
+        margin-right: 20px;
+    }
+    #pull_option {
+        width: 20%;
+    }
+
+    main, #header {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+}

@@ -327,6 +327,11 @@ function popupModal(type, data) {
             msg += '<br/><br/>Press "Confirm" if you would like other players to go for bingo, otherwise, press "Cancel" to quit the game.';
             break;
 
+        case "not_winner":
+            msg = "<h2>Not a winner</h2>";
+            msg += '<br/><br/>The provided gameboard is not a winner.';
+            break;
+
         default:
             break;
     }
@@ -363,6 +368,12 @@ function popupModal(type, data) {
                         quitGame();
                     });
                     break;
+
+                case "not_winner":
+                    $("#modal_close").on("click", function() {
+                        populateGame(data, true);
+                    });
+                    break;
             
                 default:
                     break;
@@ -385,19 +396,18 @@ function loadCurrentGame() {
         var gameVars = JSON.parse(atob(localStorage.currentGame));
         var hostVars = Object.assign({}, gameVars);
         if(isHost(hostVars)) {
-            console.log("isHost");
-            var foundWinner = false;
+            var checkResults = false;
             window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
                 if(key == "check_win") {
                     var urlVal = value.slice(1, value.length - 1);
                     var checkWin = JSON.parse(atob(urlVal));
-                    console.log(checkWin);
-                    if(checkForWin(checkWin)) {
-                        foundWinner = true;
+                    checkResults = true;
+                    if(!checkForWin(checkWin)) {
+                        popupModal("not_winner", gameVars);
                     }
                 }
             });
-            if(foundWinner) {
+            if(checkResults) {
                 return;
             }
         }
@@ -651,7 +661,7 @@ function quitGame() {
 function checkForWin(playerBoard=false) {
     var playerWin = playerBoard ? false : true;
     var gameVars = gameVars ? gameVars : JSON.parse(atob(localStorage.currentGame));
-    var gameBoard = playerBoard ? playerBoard: gameVars.gameBoard;
+    var gameBoard = playerBoard ? playerBoard : gameVars.gameBoard;
     var foundWin = false;
     // check columns
     for(var i = 0; i < boardSize; i++) {
@@ -718,7 +728,6 @@ function checkCells(cells) {
 
 function highlightWin(winningCells) {
     var cells = $("td");
-    console.log(winningCells);
     for(var i = 0; i < cells.length; i++) {
         var cell = cells[i];
         for(var j = 0; j < winningCells.length; j++) {

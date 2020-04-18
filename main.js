@@ -42,14 +42,35 @@ window.onload = function() {
             default:
                 break;
         }
+        closeModal();
     });
     
-    $("#modal_close, #modal .footer .cancel, #modal .footer .confirm").on("click", function() {
-        if($("#modal").attr("data-action") != "host" || $(this).attr("id") == "modal_close") {
-            $("#modal").hide(500, function() {
-                $("#modal_bg").fadeOut(250);
-            });
+    $("#modal .footer .cancel").on("click", function() {
+        var action = $("#modal").attr("data-action");
+        var data = JSON.parse($("#modal").attr("data"));
+        switch (action) {
+            case "player_win":
+                quitGame();
+                break;
+                
+            default:
+                break;
         }
+        closeModal();
+    });
+    
+    $("#modal_close").on("click", function() {
+        var action = $("#modal").attr("data-action");
+        var data = JSON.parse($("#modal").attr("data"));
+        switch (action) {
+            case "not_winner":
+                populateGame(data, true);
+                break;
+        
+            default:
+                break;
+        }
+        closeModal();
     });
 
     $("#btn_create_game").on("click", function() {
@@ -176,6 +197,12 @@ window.onload = function() {
     });
 
     $("#delete_local_storage").remove();
+}
+
+function closeModal() {
+    $("#modal").hide(500, function() {
+        $("#modal_bg").fadeOut(250);
+    });
 }
 
 function markCell(cell) {
@@ -307,7 +334,6 @@ function popupModal(type, data) {
             break;
 
         case "win_url":
-            // if isHost do not show the url
             var gameVars = JSON.parse(atob(localStorage.currentGame));
             msg = "<h2>Bingo!</h2>";
             if(!gameVars["is_host"]) {
@@ -335,7 +361,7 @@ function popupModal(type, data) {
         default:
             break;
     }
-    $("#modal .content").html(msg)
+    $("#modal .content").html(msg);
     $("#modal_bg").fadeIn(250, function() {
         $("#modal").show(500, function() {
             switch (type) {
@@ -360,18 +386,6 @@ function popupModal(type, data) {
                                 $("#temp_copy_success").hide(500);
                             }, 3000);
                         });
-                    });
-                    break;
-                    
-                case "player_win":
-                    $("button.cancel").on("click", function() {
-                        quitGame();
-                    });
-                    break;
-
-                case "not_winner":
-                    $("#modal_close").on("click", function() {
-                        populateGame(data, true);
                     });
                     break;
             

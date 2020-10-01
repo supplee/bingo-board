@@ -3,29 +3,29 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bingo</title>
+    <title>Bingo - Strip</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/main.css') }}">
     <script
         src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
         crossorigin="anonymous">
     </script>
-    <script src="main.js"></script>
+    <!--<script src="{{ url_for('static',filename='js/main.js') }}"></script>-->
 </head>
 
 <body>
     <nav id="nav_wrapper">
         <div id="nav">
             <div id="header">
-                <a><h2 id="title_text">Bingo</h2></a>
-                <div id="toggle">
-                    <div id="line-wrapper">
+                <a><h2 id="title_text">Forensic Files Bingo</h2></a>
+                <!--<div id="toggle">
+                  <div id="line-wrapper">
                         <div class="line top-line"></div>
                         <div class="line mid-line"></div>
                         <div class="line btm-line"></div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
         <div id="options">
@@ -39,10 +39,9 @@
         <div id="edit_game"></div>
         <div id="delete_game"></div>
         <div id="cancel"><div id="btn_cancel">Close</div></div>
-    </nav>
 
     <main>
-        <div id="description" hidden>Create and play your own games of bingo with friends and family.</div>
+        <!-- <div id="description" hidden>Create and play your own games of bingo with friends and family.</div>
         <div id="delete_local_storage" hidden>
             <p class="error-msg">
                 If you are seeing this, something went wrong and you most likely have corrupt data in one of your games.
@@ -53,52 +52,24 @@
             <button id="btn_delete_current_game" onclick="deleteCurrentGame()">Delete Current Game</button>
             <button id="btn_delete_saved_games" onclick="deleteSavedGames()">Delete Saved Games</button>
             <button id="btn_delete_local_storage" onclick="deleteStorage()">Delete Local Storage</button>
-        </div>
+        </div>-->
 
         <div id="game_board">
             <div id="host_controls">
                 <select id="pulled_game_options">
                 </select><button id="pull_option">Pull Option</button>
             </div>
-            <select id="game_options">
+            <!-- <select id="game_options">
                 <option>Create or Load a Game</option>
-            </select>
-            <table>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+            </select>-->
+            <table id="game_board" class="active">
+                {% for row in rows %}
+                <tr class="active">
+                    {% for cell in row %}
+                        <td class="active">{{ cell }}</td>
+                    {% endfor %}
                 </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
+                {% endfor %}
             </table>
         </div>
 

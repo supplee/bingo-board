@@ -3,7 +3,7 @@ var boardSize = 5;
 var preventBingo = false;
 
 window.onload = function() {
-    $("#header a").attr("href", location.protocol + "//" + location.host + location.pathname);
+/*    $("#header a").attr("href", location.protocol + "//" + location.host + location.pathname);
     loadCurrentGame();
 
     $("#toggle, .option").on("click", function() {
@@ -145,7 +145,7 @@ window.onload = function() {
         title = title.replace(/[^a-zA-Z0-9\s]/g, "");
         title = title.replace(/\,(\s*\,+)+/g, ",");
         $("#bingo_title").val(title);
-    });
+    });*/
 
     $("td").on("click", function() {
         var cell = $(this);

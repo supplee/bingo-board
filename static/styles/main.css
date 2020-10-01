@@ -206,7 +206,7 @@ button.danger:hover {
 }
 
 #game_board {
-    opacity: 0.3;
+    opacity: 1
     pointer-events: none;
 }
 
@@ -226,6 +226,8 @@ button.danger:hover {
     height: 20%;
     border: 4px solid #46b;
     font-size: 2.5vw;
+    vertical-align: middle;
+    text-align: center;
 }
 
 table tr:nth-of-type(3) td:nth-of-type(3), .checked {

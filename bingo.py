@@ -35,7 +35,7 @@ def generate_card():
     row3 = [rare.pop(),   rare.pop(),   center,     rare.pop(),   rare.pop()]
     row4 = [rare.pop(),   common.pop(), rare.pop(), common.pop(), rare.pop()]
     row5 = [common.pop(), rare.pop(),   rare.pop(), rare.pop(),   common.pop()]
-    print(row1,row2,row3,row4,row5,sep='\n', end='\n', file=sys.stdout, flush=True)
+
     return render_template("index.html",rows=[row1, row2, row3, row4, row5])
 
 #@app.route("/<name>")

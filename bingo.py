@@ -26,8 +26,9 @@ def generate_card():
     rare = []
     while len(rare) < 16:
         terms_to_choose = 16 - len(rare) # find out how many more non-duplicate terms are needed for the card
-        rare.append(sample(weighted_term_pool, terms_to_choose)) # grab that number of terms for the card
-        rare = list(set(rare)) # remove duplicates in case the same term is chosen twice
+        rare += sample(weighted_term_pool, terms_to_choose) # grab that number of terms for the card
+        rare_set = set(rare) # remove duplicates in case the same term is chosen twice
+        rare = [ r for r in rare_set ]
 
 
     row1 = [common.pop(), rare.pop(),   rare.pop(), rare.pop(),   common.pop()]

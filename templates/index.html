@@ -55,11 +55,11 @@
         </div>-->
 
         <div id="game_board">
-            <div id="host_controls">
+            <!--<div id="host_controls">
                 <select id="pulled_game_options">
                 </select><button id="pull_option">Pull Option</button>
             </div>
-            <!-- <select id="game_options">
+            <select id="game_options">
                 <option>Create or Load a Game</option>
             </select>-->
             <table id="game_board" class="active">
@@ -73,6 +73,11 @@
                 </tr>
                 {% endfor %}
             </table>
+            <p id="error-msg">Board: {{ id }}
+            <form action="{{ url_for('generate_card') }}" method="get">
+                <input type='text' style='text-align: center' size=5 name="board" value="{{ id }}" /><input type="submit" value="Load another board" />
+            </form>
+            </p>
         </div>
 
 

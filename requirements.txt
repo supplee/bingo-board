@@ -1,33 +1,6 @@
-# This file may be used to create an environment using:
-# $ conda create --name <env> --file <this file>
-# platform: win-64
-ca-certificates=2020.6.20=hecda079_0
-certifi=2020.6.20=py38h32f6830_0
-click=7.1.2=pyh9f0ad1d_0
-flask=1.1.2=pyh9f0ad1d_0
-intel-openmp=2020.1=216
-itsdangerous=1.1.0=py_0
-jinja2=2.11.2=pyh9f0ad1d_0
-libblas=3.8.0=16_mkl
-libcblas=3.8.0=16_mkl
-liblapack=3.8.0=16_mkl
-markupsafe=1.1.1=py38h1e8a9f7_1
-mkl=2020.1=216
-numpy=1.19.1=py38h72c728b_0
-openssl=1.1.1h=he774522_0
-pandas=1.1.2=py38h7ae7562_0
-pip=20.2.3=py_0
-python=3.8.5=h60c2a47_9_cpython
-python-dateutil=2.8.1=py_0
-python_abi=3.8=1_cp38
-pytz=2020.1=pyh9f0ad1d_0
-setuptools=49.6.0=py38h32f6830_1
-six=1.15.0=pyh9f0ad1d_0
-sqlite=3.33.0=he774522_0
-vc=14.1=h869be7e_1
-vs2015_runtime=14.16.27012=h30e32a0_2
-waitress=1.4.4=pypi_0
-werkzeug=1.0.1=pyh9f0ad1d_0
-wheel=0.35.1=pyh9f0ad1d_0
-wincertstore=0.2=py38_1003
-xlrd=1.2.0=pyh9f0ad1d_1
+certifi==2020.6.20
+fastapi==0.61.2
+httptools==0.1.1
+pydantic==1.7.2
+starlette==0.13.6
+uvloop==0.14.0

@@ -1,6 +1,7 @@
 #!/usr/bir/
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import pandas as pd
 # import numpy as np
@@ -8,6 +9,7 @@ import os, sys
 from random import sample
 from typing import TypeVar, Generic
 import random
+
 
 class ServerConfig:
     vocab_path = os.getenv('BINGO_HOME')
@@ -17,9 +19,11 @@ class ServerConfig:
 
 
 server = FastAPI()
+server.add_middleware(CORSMiddleware, allow_origins=['*'])
 
-#@server.get("/")
-#async def root():
+
+# @server.get("/")
+# async def root():
 #    return {"message": "Hello, World!"}
 
 
@@ -27,14 +31,14 @@ server = FastAPI()
 async def generate_card():
     df = ServerConfig.df
 
-    common = sample(df.query('likelihood > 3').text.tolist(),8)
+    common = sample(df.query('likelihood > 3').text.tolist(), 8)
     unused_terms = df[~df.text.isin(common)]
     center = 'Peter Thomas names a city, state, or country'
 
-    likelihood_distribution = { 1: 1,
-                                2: 2,
-                                3: 7,
-                                4: 10 }
+    likelihood_distribution = {1: 1,
+                               2: 2,
+                               3: 7,
+                               4: 10}
 
     weighted_term_pool = []
     for j in unused_terms.itertuples(index=False):
@@ -44,27 +48,25 @@ async def generate_card():
     # Grab term from the list randomly without duplication
     rare = []
     while len(rare) < 16:
-        terms_to_choose = 16 - len(rare) # find out how many more non-duplicate terms are needed for the card
-        rare += sample(weighted_term_pool, terms_to_choose) # grab that number of terms for the card
-        rare_set = set(rare) # remove duplicates in case the same term is chosen twice
-        rare = [ r for r in rare_set ]
+        terms_to_choose = 16 - len(rare)  # find out how many more non-duplicate terms are needed for the card
+        rare += sample(weighted_term_pool, terms_to_choose)  # grab that number of terms for the card
+        rare_set = set(rare)  # remove duplicates in case the same term is chosen twice
+        rare = [r for r in rare_set]
 
+    row1 = [common.pop(), rare.pop(), rare.pop(), rare.pop(), common.pop()]
+    row2 = [rare.pop(), common.pop(), rare.pop(), common.pop(), rare.pop()]
+    row3 = [rare.pop(), rare.pop(), center, rare.pop(), rare.pop()]
+    row4 = [rare.pop(), common.pop(), rare.pop(), common.pop(), rare.pop()]
+    row5 = [common.pop(), rare.pop(), rare.pop(), rare.pop(), common.pop()]
 
-    row1 = [common.pop(), rare.pop(),   rare.pop(), rare.pop(),   common.pop()]
-    row2 = [rare.pop(),   common.pop(), rare.pop(), common.pop(), rare.pop()]
-    row3 = [rare.pop(),   rare.pop(),   center,     rare.pop(),   rare.pop()]
-    row4 = [rare.pop(),   common.pop(), rare.pop(), common.pop(), rare.pop()]
-    row5 = [common.pop(), rare.pop(),   rare.pop(), rare.pop(),   common.pop()]
+    squares = row1+row2+row3+row4+row5
 
     # id=save_card(row1, row2, row3, row4, row5)
-    return {
-        'id': str(hex(hash(''.join([r for r in row1+row2+row3+row4+row5]))))[3:],
-        'row1': row1,
-        'row2': row2,
-        'row3': row3,
-        'row4': row4,
-        'row5': row5
-    }
+    board = {'id': str(hex(hash(''.join([r for r in row1 + row2 + row3 + row4 + row5]))))[3:]}
+    json_squares = list(squares)
+    board['square.text'] = json_squares
+    return board
+
 
 if __name__ == "__main__":
     uvicorn.run("api:server", host="0.0.0.0", port=4200, log_level="info", reload=True)

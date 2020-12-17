@@ -12,18 +12,18 @@ import random
 
 
 class ServerConfig:
-    vocab_path = os.getenv('BINGO_HOME')
+    vocab_path = os.getenv('BINGO_HOME') if os.getenv('BINGO_HOME') else os.path.dirname('.')
     vocab_path = os.path.join(vocab_path, "vocab.xlsx")
     _bingoData: pd.DataFrame = pd.read_excel(vocab_path)
     df: pd.DataFrame = _bingoData.copy()
-
+  
 
 server = FastAPI()
 server.add_middleware(CORSMiddleware, allow_origins=['*'])
 
 
-# @server.get("/")
-# async def root():
+#@server.get("/")
+#async def root():
 #    return {"message": "Hello, World!"}
 
 
